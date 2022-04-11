@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\ProductsController;
 
 
 /*
@@ -30,5 +31,8 @@ Route::middleware([
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/Categories/data', [CategoriesController::class, 'data'])->name('categories.data');
     Route::resource('/Categories', CategoriesController::class);
+
+    Route::get('/Products/data', [ProductsController::class, 'data'])->name('products.data');
+    Route::resource('/Products', ProductsController::class);
 });
 

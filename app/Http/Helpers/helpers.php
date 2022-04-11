@@ -1,7 +1,7 @@
 <?php 
 
 function format_uang ($angka) {
-    number_format($angka, 0, ',', '.');
+    return number_format($angka, 0, ',', '.');
 }
 
 function terbilang($angka) {
@@ -55,4 +55,9 @@ function tanggal_indonesia($tgl, $tampil_hari = true)
     return $text;
 
     
+}
+
+function tambah_nol_didepan($value, $threshold = null)
+{
+    return sprintf("%0". $threshold . "s", $value);
 }

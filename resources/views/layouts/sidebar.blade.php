@@ -29,7 +29,7 @@
           </a>
         </li>
         <li>
-          <a href="pages/widgets.html">
+          <a href="{{ route('Products.index') }}">
             <i class="fa fa-cubes"></i> <span>Produk</span>
             
           </a>
