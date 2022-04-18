@@ -15,26 +15,35 @@
         <div class="col-md-12">
           <div class="box">
             <div class="box-header with-border">
-              <button onclick="addForm(' {{ route('Products.store') }} ')" class="btn btn-success xs btn-flat"><i class="fa fa-plus-circle"></i>Tambah</button>
-
+              <div class="btn-group">
+                <button onclick="addForm(' {{ route('Products.store') }} ')" class="btn btn-success xs btn-flat"><i class="fa fa-plus-circle"></i>Tambah</button>
+                <button onclick="deleteSelected(' {{ route('products.delete_selected') }} ')" class="btn btn-danger xs btn-flat"><i class="fa fa-trash"></i>Hapus</button>
+                <button onclick="printBarcode(' {{ route('products.print_barcode') }} ')" class="btn btn-info xs btn-flat"><i class="fa fa-barcode"></i>Cetak Barcode</button>
+              </div>
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive">
-              <table class="table table-stiped table-bordered">
-                <thead>
-                  <th width="5%">No</th>
-                  <th>Kode</th>
-                  <th>Nama</th>
-                  <th>Kategori</th>
-                  <th>Merk</th>
-                  <th>Harga Beli</th>
-                  <th>Harga Jual</th>
-                  <th>Diskon</th>
-                  <th>Stok</th>
-                  <th widht="15%"><i class="fa fa-cog"></i></th>
-                </thead>
-                <tbody></tbody>
-              </table>
+              <form action="" class="form-product">
+                @csrf 
+                <table class="table table-stiped table-bordered">
+                  <thead>
+                    <th>
+                      <input type="checkbox" name="select_all" id="select_all">
+                    </th>
+                    <th width="5%">No</th>
+                    <th>Kode</th>
+                    <th>Nama</th>
+                    <th>Kategori</th>
+                    <th>Merk</th>
+                    <th>Harga Beli</th>
+                    <th>Harga Jual</th>
+                    <th>Diskon</th>
+                    <th>Stok</th>
+                    <th widht="15%"><i class="fa fa-cog"></i></th>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </form>
               <!-- /.row -->
             </div>
             <!-- ./box-body -->
@@ -63,6 +72,7 @@
           url: '{{ route('products.data') }}'
         },
         columns: [
+          {data: 'select_all'},
           {data: 'DT_RowIndex', searchable: false, sortable: false},
           {data: 'code_product'},
           {data: 'name_product'},
@@ -92,7 +102,13 @@
 
         }
       });
+
+      $('[name=select_all]').on('click', function () {
+        $(':checkbox').prop('checked', this.checked);
+      } )
     });
+
+    
 
     function addForm(url) {
     $('#modal-form').modal('show');
@@ -130,8 +146,20 @@
         return;
       })
 
+      
 
+    }
 
+    function printBarcode(url) {
+        if ($('input:checked').length < 3) {
+            alert('Pilih data yang akan dicetak');
+            return;
+        } else {
+            $('.form-produk')
+                .attr('target', '_blank')
+                .attr('action', url)
+                .submit();
+        }
     }
 
     function deleteData(url) {
@@ -149,6 +177,40 @@
       })
       }
     }
+
+    function deleteSelected(url) {
+      if ($('input:checked').length < 1) {
+         if (confirm('Yakin ingin menghapus data terpilih?')) {
+            $.post(url, $('.form-product').serialize())
+            .done((responese) => {
+              table.ajax.reload();
+
+            })
+            .fail((errors) => {
+              alert('Tidak dapat menghapus data');
+              return;
+            })
+         }
+
+      } else {
+        alert('Pilih data yang akan dihapus');
+        return;
+      }
+    }
+
+    // function printBarcode(url) {
+    //   if ($('input:checked').length < 1) {
+    //     alert('Pilih data yang akan dicetak');
+    //     return;
+    //   } else if  ($('input:checked').length < 3) {
+    //     alert('Pilih minimal 3 data untuk dicetak');
+    //     return;
+    //   } else {
+    //     $('.form-product').attr('action', url).attr('target', '_blank');
+    //   }
+    // }
+    
+    
 
   </script>
 

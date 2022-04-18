@@ -31,19 +31,6 @@
         <li>
           <a href="{{ route('Products.index') }}">
             <i class="fa fa-cubes"></i> <span>Produk</span>
-            
-          </a>
-        </li>
-        <li>
-          <a href="pages/widgets.html">
-            <i class="fa fa-id-card"></i> <span>Member</span>
-            
-          </a>
-        </li>
-        <li>
-          <a href="pages/widgets.html">
-            <i class="fa fa-truck"></i> <span>Sublier</span>
-            
           </a>
         </li>
         <li class="header">TRANSAKSI</li>
@@ -55,14 +42,6 @@
         </li>
         <li>
           <a href="pages/widgets.html">
-            <i class="fa fa-download"></i> <span>Pembelian</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-        </li>
-        <li>
-          <a href="pages/widgets.html">
             <i class="fa fa-upload"></i> <span>Penjualan</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -70,7 +49,7 @@
           </a>
         </li>
         <li>
-          <a href="pages/widgets.html">
+          <a href="Transaction.index">
             <i class="fa fa-cart-arrow-down"></i> <span>Transaksi Lama</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -78,7 +57,7 @@
           </a>
         </li>
         <li>
-          <a href="pages/widgets.html">
+          <a href="{{ route('transaction.new') }}">
             <i class="fa fa-cart-arrow-down"></i> <span>Transaksi Baru</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>

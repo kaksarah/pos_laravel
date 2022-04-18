@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\SalesDetailController;
+use App\Http\Controllers\SalesController;
 
 
 /*
@@ -33,6 +35,13 @@ Route::group(['middleware' => 'auth'], function() {
     Route::resource('/Categories', CategoriesController::class);
 
     Route::get('/Products/data', [ProductsController::class, 'data'])->name('products.data');
+    Route::post('/Products/delete-selected', [ProductsController::class, 'deleteSelected'])->name('products.delete_selected');
+    Route::post('/Products/print-barcode', [ProductsController::class, 'printBarcode'])->name('products.print_barcode');
     Route::resource('/Products', ProductsController::class);
+
+    Route::get('/Transaction/new', [SalesController::class, 'create'])->name('transaction.new');
+    Route::get('/Transaction/{id}/data', [SalesDetailController::class, 'data'])->name('transaction.data');
+    Route::resource('/Transaction', SalesDetailController::class)
+    ->except('show');
 });
 

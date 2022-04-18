@@ -46,8 +46,6 @@
     </nav>
   </header>
 
-  //logout
-
   <form action="{{ route('logout') }}" method="post" id="logout-form" style="display: none">
     @csrf 
   </form>
