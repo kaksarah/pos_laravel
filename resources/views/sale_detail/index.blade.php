@@ -145,6 +145,9 @@
         })
         .on('draw.dt', function () {
             loadForm();
+            setTimeout(() => {
+                $('#diterima').trigger('input');
+            }, 300);
         });
         table2 = $('.table-product').DataTable();
 

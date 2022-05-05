@@ -12,4 +12,9 @@ class Sales extends Model
     protected $table = "sales";
     protected $primaryKey = "id_sale";
     protected $guarded = [];
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'id_user');
+    }
 }

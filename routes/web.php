@@ -40,8 +40,9 @@ Route::group(['middleware' => 'auth'], function() {
     Route::resource('/Products', ProductsController::class);
 
     Route::get('/Sales/data', [SalesController::class, 'data'])->name('sales.data');
-    Route::get('/Sales', [SalesController::class, 'create'])->name('sales.index');
-    Route::get('/Sales/{id}', [SalesController::class, 'show'])->name('sales.show');
+    Route::get('/Sales', [SalesController::class, 'index'])->name('sales.index');
+    Route::get('/Sales/{show}', [SalesController::class, 'show'])->name('sales.show');
+    Route::delete('/Sales/{id}', [SalesController::class, 'destroy'])->name('sales.destroy');
     
     Route::get('/Transaction/new', [SalesController::class, 'create'])->name('transaction.new');
     Route::post('/Transaction/simpan', [SalesController::class, 'store'])->name('transaction.simpan');

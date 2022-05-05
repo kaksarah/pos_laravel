@@ -49,8 +49,8 @@
           </a>
         </li>
         <li>
-          <a href="Transaction.index">
-            <i class="fa fa-cart-arrow-down"></i> <span>Transaksi Lama</span>
+          <a href="{{ route('sales.index') }}">
+            <i class="fa fa-cart-arrow-down"></i> <span>Transaksi Aktif</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>

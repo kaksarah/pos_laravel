@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Products;
 use App\Models\SalesDetail;
+use App\Models\Sales;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\SalesController;
 use DataTables;
@@ -22,7 +23,8 @@ class SalesDetailController extends Controller
 
         // Cek apakah ada transaksi yang sedang berjalan
         if ($id_sale = session('id_sale')) {
-            return view('sale_detail.index', compact('product', 'id_sale'));
+            $sale = Sales::find('id_sale');
+            return view('sale_detail.index', compact('product', 'id_sale', 'sale'));
         } else {
             if (auth()->user()->level == 0) {
                 return redirect()->route('transaction.new');
