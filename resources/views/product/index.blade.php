@@ -150,17 +150,17 @@
 
     }
 
-    function printBarcode(url) {
-        if ($('input:checked').length < 3) {
-            alert('Pilih data yang akan dicetak');
-            return;
-        } else {
-            $('.form-produk')
-                .attr('target', '_blank')
-                .attr('action', url)
-                .submit();
-        }
-    }
+    // function printBarcode(url) {
+    //     if ($('input:checked').length < 3) {
+    //         alert('Pilih data yang akan dicetak');
+    //         return;
+    //     } else {
+    //         $('.form-produk')
+    //             .attr('target', '_blank')
+    //             .attr('action', url)
+    //             .submit();
+    //     }
+    // }
 
     function deleteData(url) {
       if(confirm("Anda ingin menghapus data?")) {
@@ -179,7 +179,7 @@
     }
 
     function deleteSelected(url) {
-      if ($('input:checked').length < 1) {
+      if ($('input:checked').length > 1) {
          if (confirm('Yakin ingin menghapus data terpilih?')) {
             $.post(url, $('.form-product').serialize())
             .done((responese) => {
@@ -193,22 +193,27 @@
          }
 
       } else {
-        alert('Pilih data yang akan dihapus');
-        return;
-      }
+          alert('Pilih data yang akan dihapus');
+          return;
+        }
     }
+    
 
-    // function printBarcode(url) {
-    //   if ($('input:checked').length < 1) {
-    //     alert('Pilih data yang akan dicetak');
-    //     return;
-    //   } else if  ($('input:checked').length < 3) {
-    //     alert('Pilih minimal 3 data untuk dicetak');
-    //     return;
-    //   } else {
-    //     $('.form-product').attr('action', url).attr('target', '_blank');
-    //   }
-    // }
+    function printBarcode(url) {
+      if ($('input:checked').length > 1) {
+        alert('Pilih data yang akan dicetak');
+        return;
+      } else { 
+          if  ($('input:checked').length > 3) {
+          alert('Pilih minimal 3 data untuk dicetak');
+          return;
+          }  else {
+              $('.form-product').attr('action', url).attr('target', '_blank');
+          }
+        }
+      
+     
+    }
     
     
 

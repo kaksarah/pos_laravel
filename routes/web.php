@@ -39,8 +39,15 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/Products/print-barcode', [ProductsController::class, 'printBarcode'])->name('products.print_barcode');
     Route::resource('/Products', ProductsController::class);
 
+    Route::get('/Sales/data', [SalesController::class, 'data'])->name('sales.data');
+    Route::get('/Sales', [SalesController::class, 'create'])->name('sales.index');
+    Route::get('/Sales/{id}', [SalesController::class, 'show'])->name('sales.show');
+    
     Route::get('/Transaction/new', [SalesController::class, 'create'])->name('transaction.new');
+    Route::post('/Transaction/simpan', [SalesController::class, 'store'])->name('transaction.simpan');
+    
     Route::get('/Transaction/{id}/data', [SalesDetailController::class, 'data'])->name('transaction.data');
+    Route::get('/Transaction/loadform/{total}/{diterima}', [SalesDetailController::class, 'loadForm'])->name('transaction.load_form');
     Route::resource('/Transaction', SalesDetailController::class)
     ->except('show');
 });
