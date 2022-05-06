@@ -7,6 +7,7 @@ use App\Models\Sales;
 use App\Models\SalesDetail;
 use App\Models\Products;
 use App\Models\Setting;
+use PDF;
 
 
 class SalesController extends Controller
@@ -79,7 +80,7 @@ class SalesController extends Controller
         $sale->total_items = $request->total_item;
         $sale->total_price = $request->total;
         $sale->pay = $request->total;
-        $sale->accepted = $request->total;
+        $sale->accepted = $request->diterima;
         $sale->update();
 
         $detail = SalesDetail::where('id_sale', $sale->id_sale)->get();
@@ -141,5 +142,37 @@ class SalesController extends Controller
         $setting = Setting::first();
 
         return view('sale.end', compact('setting'));
+    }
+
+    public function notaSmall() 
+    {
+        $setting    = Setting::first();
+        $sale       = Sales::find(session('id_sale'));
+        if (! $sale) {
+            abort(404);
+        }
+        $detail     = SalesDetail::with('product')
+            ->where('id_sale', session('id_sale'))
+            ->get();
+
+        return view('sale.nota_small', compact('setting', 'sale', 'detail'));
+    }
+
+    public function notaBig() 
+    {
+        $setting    = Setting::first();
+        $sale       = Sales::find(session('id_sale'));
+        if (! $sale) {
+            abort(404);
+        }
+        $detail     = SalesDetail::with('product')
+            ->where('id_sale', session('id_sale'))
+            ->get();
+
+        return view('sale.nota_big', compact('setting', 'sale', 'detail'));
+
+        $pdf = pdf::loadView(sale.nota_big, compact('setting', 'sale', 'detail'));
+        $pdf->setPaper(0,0,600,400, 'potrait');
+        return $pdf->stream();
     }
 }

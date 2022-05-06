@@ -27,13 +27,13 @@
         }
     </style>
 </head>
-<body>
+<body onload="window.print()">
     <table width="100%">
         <tr>
             <td rowspan="4" width="60%">
-                <img src="{{ public_path($setting->path_logo) }}" alt="{{ $setting->path_logo }}" width="120">
+                <img src="{{ asset($setting->path_logo) }}" alt="{{ $setting->path_logo }}" width="120">
                 <br>
-                {{ $setting->alamat }}
+                {{ $setting->address }}
                 <br>
                 <br>
             </td>
@@ -50,7 +50,6 @@
                 <th>Nama</th>
                 <th>Harga Satuan</th>
                 <th>Jumlah</th>
-                <th>Diskon</th>
                 <th>Subtotal</th>
             </tr>
         </thead>
@@ -58,35 +57,32 @@
             @foreach ($detail as $key => $item)
                 <tr>
                     <td class="text-center">{{ $key+1 }}</td>
-                    <td>{{ $item->produk->nama_produk }}</td>
-                    <td>{{ $item->produk->kode_produk }}</td>
-                    <td class="text-right">{{ format_uang($item->harga_jual) }}</td>
-                    <td class="text-right">{{ format_uang($item->jumlah) }}</td>
-                    <td class="text-right">{{ $item->diskon }}</td>
+                    <td>{{ $item->product->name_product }}</td>
+                    <td>{{ $item->product->code_product }}</td>
+                    <td class="text-right">{{ format_uang($item->selling_price) }}</td>
+                    <td class="text-right">{{ format_uang($item->total) }}</td>
                     <td class="text-right">{{ format_uang($item->subtotal) }}</td>
                 </tr>
             @endforeach
         </tbody>
         <tfoot>
+        @foreach ($detail as $key => $item)
             <tr>
-                <td colspan="6" class="text-right"><b>Total Harga</b></td>
-                <td class="text-right"><b>{{ format_uang($penjualan->total_harga) }}</b></td>
+                <td colspan="5" class="text-right"><b>Total Harga</b></td>
+                <td class="text-right"><b>{{ format_uang($item->subtotal) }}</b></td>
+            </tr>
+        @endforeach
+            <tr>
+                <td colspan="5" class="text-right"><b>Total Bayar</b></td>
+                <td class="text-right"><b>{{ format_uang($sale->pay) }}</b></td>
             </tr>
             <tr>
-                <td colspan="6" class="text-right"><b>Diskon</b></td>
-                <td class="text-right"><b>{{ format_uang($penjualan->diskon) }}</b></td>
+                <td colspan="5" class="text-right"><b>Diterima</b></td>
+                <td class="text-right"><b>{{ format_uang($sale->accepted) }}</b></td>
             </tr>
             <tr>
-                <td colspan="6" class="text-right"><b>Total Bayar</b></td>
-                <td class="text-right"><b>{{ format_uang($penjualan->bayar) }}</b></td>
-            </tr>
-            <tr>
-                <td colspan="6" class="text-right"><b>Diterima</b></td>
-                <td class="text-right"><b>{{ format_uang($penjualan->diterima) }}</b></td>
-            </tr>
-            <tr>
-                <td colspan="6" class="text-right"><b>Kembali</b></td>
-                <td class="text-right"><b>{{ format_uang($penjualan->diterima - $penjualan->bayar) }}</b></td>
+                <td colspan="5 " class="text-right"><b>Kembali</b></td>
+                <td class="text-right"><b>{{ format_uang($sale->accepted - $sale->pay) }}</b></td>
             </tr>
         </tfoot>
     </table>

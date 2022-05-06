@@ -92,6 +92,7 @@ class SalesDetailController extends Controller
         $detail = new SalesDetail();
         $detail->id_sale = $request->id_sale;
         $detail->id_product = $product->id_product;
+        $detail->table = $request->table;
         $detail->selling_price = $product->selling_price;
         $detail->total = 1;
         $detail->subtotal = $product->selling_price;

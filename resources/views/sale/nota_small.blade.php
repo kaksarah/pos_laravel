@@ -57,8 +57,8 @@
 <body onload="window.print()">
     <button class="btn-print" style="position: absolute; right: 1rem; top: rem;" onclick="window.print()">Print</button>
     <div class="text-center">
-        <h3 style="margin-bottom: 5px;">{{ strtoupper($setting->nama_perusahaan) }}</h3>
-        <p>{{ strtoupper($setting->alamat) }}</p>
+        <h3 style="margin-bottom: 5px;">{{ strtoupper($setting->company_name) }}</h3>
+        <p>{{ strtoupper($setting->address) }}</p>
     </div>
     <br>
     <div>
@@ -66,19 +66,19 @@
         <p style="float: right">{{ strtoupper(auth()->user()->name) }}</p>
     </div>
     <div class="clear-both" style="clear: both;"></div>
-    <p>No: {{ tambah_nol_didepan($penjualan->id_penjualan, 10) }}</p>
+    <p>No: {{ tambah_nol_didepan($sale->id_sale, 10) }}</p>
     <p class="text-center">===================================</p>
     
     <br>
     <table width="100%" style="border: 0;">
         @foreach ($detail as $item)
             <tr>
-                <td colspan="3">{{ $item->produk->nama_produk }}</td>
+                <td colspan="3">{{ $item->product->name_product }}</td>
             </tr>
             <tr>
-                <td>{{ $item->jumlah }} x {{ format_uang($item->harga_jual) }}</td>
+                <td>{{ $item->total }} x {{ format_uang($item->selling_price) }}</td>
                 <td></td>
-                <td class="text-right">{{ format_uang($item->jumlah * $item->harga_jual) }}</td>
+                <td class="text-right">{{ format_uang($item->total * $item->selling_price) }}</td>
             </tr>
         @endforeach
     </table>
@@ -87,27 +87,23 @@
     <table width="100%" style="border: 0;">
         <tr>
             <td>Total Harga:</td>
-            <td class="text-right">{{ format_uang($penjualan->total_harga) }}</td>
+            <td class="text-right">{{ format_uang($sale->total_pay) }}</td>
         </tr>
         <tr>
             <td>Total Item:</td>
-            <td class="text-right">{{ format_uang($penjualan->total_item) }}</td>
-        </tr>
-        <tr>
-            <td>Diskon:</td>
-            <td class="text-right">{{ format_uang($penjualan->diskon) }}</td>
+            <td class="text-right">{{ format_uang($sale->total_item) }}</td>
         </tr>
         <tr>
             <td>Total Bayar:</td>
-            <td class="text-right">{{ format_uang($penjualan->bayar) }}</td>
+            <td class="text-right">{{ format_uang($sale->pay) }}</td>
         </tr>
         <tr>
             <td>Diterima:</td>
-            <td class="text-right">{{ format_uang($penjualan->diterima) }}</td>
+            <td class="text-right">{{ format_uang($sale->accepted) }}</td>
         </tr>
         <tr>
             <td>Kembali:</td>
-            <td class="text-right">{{ format_uang($penjualan->diterima - $penjualan->bayar) }}</td>
+            <td class="text-right">{{ format_uang($sale->accepted - $sale->pay) }}</td>
         </tr>
     </table>
 
