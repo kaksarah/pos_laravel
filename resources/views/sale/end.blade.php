@@ -20,12 +20,12 @@
                 </div>
             </div>
             <div class="box-footer">
-                @if ($setting->tipe_nota == 1)
-                <button class="btn btn-warning btn-flat" onclick="notaKecil('{{ route('transaksi.nota_kecil') }}', 'Nota Kecil')">Cetak Ulang Nota</button>
+                @if ($setting->nota_type == 1)
+                <button class="btn btn-warning btn-flat" onclick="notaSmall('{{ route('transaction.nota_small') }}', 'Nota Kecil')">Cetak Ulang Nota</button>
                 @else
-                <button class="btn btn-warning btn-flat" onclick="notaBesar('{{ route('transaksi.nota_besar') }}', 'Nota PDF')">Cetak Ulang Nota</button>
+                <button class="btn btn-warning btn-flat" onclick="notaBig('{{ route('transaction.nota_big') }}', 'Nota PDF')">Cetak Ulang Nota</button>
                 @endif
-                <a href="{{ route('transaksi.baru') }}" class="btn btn-primary btn-flat">Transaksi Baru</a>
+                <a href="{{ route('transaction.new') }}" class="btn btn-primary btn-flat">Transaksi Baru</a>
             </div>
         </div>
     </div>
@@ -37,11 +37,11 @@
     // tambahkan untuk delete cookie innerHeight terlebih dahulu
     document.cookie = "innerHeight=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     
-    function notaKecil(url, title) {
+    function notaSmall(url, title) {
         popupCenter(url, title, 625, 500);
     }
 
-    function notaBesar(url, title) {
+    function notaBig(url, title) {
         popupCenter(url, title, 900, 675);
     }
 

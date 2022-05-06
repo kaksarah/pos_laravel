@@ -41,7 +41,7 @@
           </a>
         </li>
         <li>
-          <a href="pages/widgets.html">
+          <a href="{{ route('sales.index')}}">
             <i class="fa fa-upload"></i> <span>Penjualan</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -49,7 +49,7 @@
           </a>
         </li>
         <li>
-          <a href="{{ route('sales.index') }}">
+          <a href="{{ route('Transaction.index') }}">
             <i class="fa fa-cart-arrow-down"></i> <span>Transaksi Aktif</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>

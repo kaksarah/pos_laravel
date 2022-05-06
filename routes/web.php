@@ -46,7 +46,10 @@ Route::group(['middleware' => 'auth'], function() {
     
     Route::get('/Transaction/new', [SalesController::class, 'create'])->name('transaction.new');
     Route::post('/Transaction/simpan', [SalesController::class, 'store'])->name('transaction.simpan');
-    
+    Route::get('/Transaction/nota-small', [SalesController::class, 'notaSmall'])->name('transaction.nota_small');
+    Route::get('/Transaction/nota-big', [SalesController::class, 'notaBig'])->name('transaction.nota_big');
+    Route::get('/Transaction/end', [SalesController::class, 'end'])->name('transaction.end');
+
     Route::get('/Transaction/{id}/data', [SalesDetailController::class, 'data'])->name('transaction.data');
     Route::get('/Transaction/loadform/{total}/{diterima}', [SalesDetailController::class, 'loadForm'])->name('transaction.load_form');
     Route::resource('/Transaction', SalesDetailController::class)

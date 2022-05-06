@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Sales;
 use App\Models\SalesDetail;
 use App\Models\Products;
+use App\Models\Setting;
 
 
 class SalesController extends Controller
@@ -88,7 +89,7 @@ class SalesController extends Controller
             $product->update(); 
         }
 
-        return redirect()->route('sales.index');
+        return redirect()->route('transaction.end');
     }
 
     public function show($id)
@@ -115,5 +116,30 @@ class SalesController extends Controller
             })
             ->rawColumns(['code_product'])
             ->make(true);
+    }
+
+    public function destroy($id)
+    {
+        $sale = Sales::find($id);
+        $detail    = SalesDetail::where('id_sale', $sale->id_sale)->get();
+        foreach ($detail as $item) {
+            $product = Products::find($item->id_product);
+            if ($product) {
+                $product->stock += $item->total;
+                $product->update();
+            }
+            $item->delete();
+        }
+
+        $sale->delete();
+
+        return response(null, 204);
+    }
+
+    public function end()
+    {
+        $setting = Setting::first();
+
+        return view('sale.end', compact('setting'));
     }
 }
