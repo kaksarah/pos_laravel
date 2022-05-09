@@ -173,6 +173,8 @@ class SalesController extends Controller
 
         $pdf = pdf::loadView(sale.nota_big, compact('setting', 'sale', 'detail'));
         $pdf->setPaper(0,0,600,400, 'potrait');
-        return $pdf->stream();
+
+        return $pdf->stream('Nota-' . date('Y-m-d-his') .'.pdf' );
+
     }
 }

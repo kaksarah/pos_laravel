@@ -5,7 +5,8 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\SalesDetailController;
 use App\Http\Controllers\SalesController;
-
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\UsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,5 +55,13 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/Transaction/loadform/{total}/{diterima}', [SalesDetailController::class, 'loadForm'])->name('transaction.load_form');
     Route::resource('/Transaction', SalesDetailController::class)
     ->except('show');
+
+    Route::get('/Report', [ReportController::class, 'index'])->name('report.index');
+    Route::get('/Report/data/{start}/{end}', [ReportController::class, 'data'])->name('report.data');
+    Route::get('/Report/pdf/{start}/{end}', [ReportController::class, 'exportPDF'])->name('report.exportPDF');
+
+    Route::get('/User/data', [UsersController::class, 'data'])->name('user.data');
+    Route::resource('/User', UsersController::class);
+
 });
 

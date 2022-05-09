@@ -57,8 +57,8 @@
             @foreach ($detail as $key => $item)
                 <tr>
                     <td class="text-center">{{ $key+1 }}</td>
-                    <td>{{ $item->product->name_product }}</td>
                     <td>{{ $item->product->code_product }}</td>
+                    <td>{{ $item->product->name_product }}</td>
                     <td class="text-right">{{ format_uang($item->selling_price) }}</td>
                     <td class="text-right">{{ format_uang($item->total) }}</td>
                     <td class="text-right">{{ format_uang($item->subtotal) }}</td>
@@ -66,14 +66,8 @@
             @endforeach
         </tbody>
         <tfoot>
-        @foreach ($detail as $key => $item)
             <tr>
                 <td colspan="5" class="text-right"><b>Total Harga</b></td>
-                <td class="text-right"><b>{{ format_uang($item->subtotal) }}</b></td>
-            </tr>
-        @endforeach
-            <tr>
-                <td colspan="5" class="text-right"><b>Total Bayar</b></td>
                 <td class="text-right"><b>{{ format_uang($sale->pay) }}</b></td>
             </tr>
             <tr>

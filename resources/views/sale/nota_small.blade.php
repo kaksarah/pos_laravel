@@ -86,15 +86,11 @@
 
     <table width="100%" style="border: 0;">
         <tr>
-            <td>Total Harga:</td>
-            <td class="text-right">{{ format_uang($sale->total_pay) }}</td>
-        </tr>
-        <tr>
             <td>Total Item:</td>
-            <td class="text-right">{{ format_uang($sale->total_item) }}</td>
+            <td class="text-right">{{ format_uang($sale->total_items) }}</td>
         </tr>
         <tr>
-            <td>Total Bayar:</td>
+            <td>Total Harga:</td>
             <td class="text-right">{{ format_uang($sale->pay) }}</td>
         </tr>
         <tr>
