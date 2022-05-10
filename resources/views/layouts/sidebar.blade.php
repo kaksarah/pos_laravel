@@ -77,7 +77,7 @@
           </a>
         </li>
         <li>
-          <a href="pages/widgets.html">
+          <a href="{{ route('setting.index') }}">
             <i class="fa fa-cog"></i> <span>Pengaturan</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>

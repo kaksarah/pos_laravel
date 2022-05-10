@@ -7,6 +7,8 @@ use App\Http\Controllers\SalesDetailController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\SettingController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -62,6 +64,10 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::get('/User/data', [UsersController::class, 'data'])->name('user.data');
     Route::resource('/User', UsersController::class);
+
+    Route::get('/Setting', [SettingController::class, 'index'])->name('setting.index');
+    Route::get('/Setting/first', [SettingController::class, 'show'])->name('setting.show');
+    Route::post('/Setting', [SettingController::class, 'update'])->name('setting.update');
 
 });
 
