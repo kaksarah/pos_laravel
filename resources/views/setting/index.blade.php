@@ -109,6 +109,8 @@
             $('[name=phone]').val(response.phone);
             $('[name=nota_type]').val(response.nota_type);
             $('title').text(response.company_name + ' | Pengaturan');
+            $('.logo-lg').text(response.company_name);
+            $('.logo-mini').text(response.word);
 
             $('.show-logo').html(`<img src="{{ url('/') }}${response.path_logo}" width="200">`);
             $('[rel=icon]').attr('href', `{{ url('/') }}/${response.path_logo}`);

@@ -69,5 +69,9 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/Setting/first', [SettingController::class, 'show'])->name('setting.show');
     Route::post('/Setting', [SettingController::class, 'update'])->name('setting.update');
 
+    Route::get('/Profil', [UsersController::class, 'profil'])->name('user.profil');
+    Route::post('/Profil', [UsersController::class, 'updateProfil'])->name('user.update_profil');
+
+
 });
 

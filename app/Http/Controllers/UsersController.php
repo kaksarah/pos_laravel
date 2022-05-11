@@ -122,4 +122,47 @@ class UsersController extends Controller
 
         return response(null, 204);
     }
+
+    public function profil()
+    {
+        $profil = auth()->user();
+        return view('user.profil', compact('profil'));
+    }
+
+    public function updateProfil(Request $request)
+    {
+        $user = auth()->user();
+        
+
+        $user->name = $request->name;
+
+        if ($request->has('password') && $request->password != "" )
+        {
+            if(Hash::check($request->old_password, $user->password))
+            {
+                if($request->password == $request->password_confirmation)
+                {
+                    $user->password = bcrypt($request->password);
+                } else {
+                    return response()->json('Konfirmasi password tidak sesuai', 422);
+                }
+            } else {
+                return response()->json('Password lama tidak sesuai', 422);
+            }
+        }
+
+        if ($request->hasFile('profile_photo_path'))
+        {
+            $file   = $request->file('profile_photo_path');
+            $name = 'logo-' . date('YmdHis') . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('/img'), $name);
+
+
+            $user->profile_photo_path = "/img/$name";
+        }
+
+        $user->update();
+
+        return response()->json($user, 200);
+    }
 }
