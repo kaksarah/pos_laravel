@@ -19,6 +19,7 @@ class ReportController extends Controller
             $end_date = $request->end_date;
         }
 
+        activity()->log('Membuka menu laporan pendapatan');
         return view('report.index', compact('start_date', 'end_date'));
 
 
@@ -77,6 +78,8 @@ class ReportController extends Controller
         
         $pdf = pdf::loadView('report.pdf', compact('start', 'end', 'data'));
         $pdf->setPaper('a4', 'potrait');
+
+        activity()->log('Mencetak laporan pendapatan');
         
         return $pdf->stream('Laporan-pendapatan-' . date('Y-m-d-his') .'.pdf' );
     }

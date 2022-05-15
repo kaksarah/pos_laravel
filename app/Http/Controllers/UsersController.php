@@ -11,6 +11,7 @@ class UsersController extends Controller
 {
     public function index()
     {
+        activity()->log('Membuka menu daftar pengguna');
         return view('user.index');
     }
 
@@ -61,7 +62,7 @@ class UsersController extends Controller
         $user->profile_photo_path = '/img/user.png';
         $user->save();
 
-
+        activity()->log('Menambahkan pengguna baru');
         return response()->json('Data berhasil disimpan', 200);
     }
 
@@ -106,7 +107,7 @@ class UsersController extends Controller
             $user->password = bcrypt($request->password);
         $user->update();
 
-
+        activity()->log('Mengubah data pengguna');
         return response()->json('Data berhasil disimpan', 200);
     } 
 
@@ -120,6 +121,7 @@ class UsersController extends Controller
     {
         $user = User::find($id)->delete();
 
+        activity()->log('Menghapus data pengguna');
         return response(null, 204);
     }
 
@@ -163,6 +165,7 @@ class UsersController extends Controller
 
         $user->update();
 
+        activity()->log('Mengubah data profil');
         return response()->json($user, 200);
     }
 }

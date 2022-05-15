@@ -40,6 +40,14 @@
             </span>
           </a>
         </li>
+        <li>
+          <a href="{{ route('userActivity.index') }}">
+            <i class="fa fa-cog"></i> <span>Aktivitas Pengguna</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+        </li>
         @endif
 
         @if (auth()->user()->level == 2)
@@ -55,10 +63,28 @@
             <i class="fa fa-cubes"></i> <span>Produk</span>
           </a>
         </li>
+        <li class="header">RIWAYAT TRANSAKSI</li>
+        <li>
+          <a href="{{ route('sales.index')}}">
+            <i class="fa fa-upload"></i> <span>Riwayat Transaksi</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+        </li>
         <li class="header">REPORT</li>
         <li>
           <a href="{{ route('report.index')}}">
             <i class="fa fa-file-pdf-o"></i> <span>Laporan</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+        </li>
+        <li class="header">Pengguna</li>
+        <li>
+          <a href="{{ route('userActivity.index') }}">
+            <i class="fa fa-cog"></i> <span>Aktivitas Pengguna</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>

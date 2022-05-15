@@ -22,7 +22,7 @@ class SalesController extends Controller
 
     public function index()
     {
-
+        activity()->log('Membuka menu riwayat transaksi');
         return view('sale.index');
     }
 
@@ -133,6 +133,8 @@ class SalesController extends Controller
         }
 
         $sale->delete();
+
+        activity()->log('Menghapus data riwayat transaksi');
 
         return response(null, 204);
     }

@@ -17,6 +17,7 @@ class ProductsController extends Controller
     public function index()
     {
         $category = categories::all()->pluck('name_category', 'id_category');
+        activity()->log('Membuka menu daftar produk');
         return view('product.index', compact('category'));
     }
 
@@ -81,6 +82,9 @@ class ProductsController extends Controller
         
         $product = products::create($request->all());
 
+        
+        activity()->log('Menambahkan produk baru');
+
         return response()->json('Data berhasil disimpan', 200);
     }
 
@@ -120,6 +124,8 @@ class ProductsController extends Controller
         $product = products::find($id);
         $product->update($request->all());
 
+        activity()->log('Mengubah data produk');
+
         return response()->json('data berhasil disimpan', 200);
     }
 
@@ -134,6 +140,8 @@ class ProductsController extends Controller
         $product = products::find($id);
         $product->delete();
 
+        activity()->log('Menghapus data produk');
+
         return response(null, 204);
     }
 
@@ -145,6 +153,8 @@ class ProductsController extends Controller
             $product->delete();
         
         }
+
+        activity()->log('Menghapus data produk');
         
         return response(null, 204);
 

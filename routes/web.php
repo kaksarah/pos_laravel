@@ -9,6 +9,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UsersAktivityController;
 
 
 /*
@@ -40,6 +41,10 @@ Route::group(['middleware' => 'auth'], function() {
 
         Route::get('/Profil', [UsersController::class, 'profil'])->name('user.profil');
         Route::post('/Profil', [UsersController::class, 'updateProfil'])->name('user.update_profil');
+
+        
+        
+
     });
 
     Route::group(['middleware' => 'level:2'], function() {
@@ -52,9 +57,6 @@ Route::group(['middleware' => 'auth'], function() {
         Route::post('/Products/print-barcode', [ProductsController::class, 'printBarcode'])->name('products.print_barcode');
         Route::resource('/Products', ProductsController::class);
 
-        Route::get('/Sales/data', [SalesController::class, 'data'])->name('sales.data');
-        Route::get('/Sales', [SalesController::class, 'index'])->name('sales.index');
-        Route::get('/Sales/{show}', [SalesController::class, 'show'])->name('sales.show');
         Route::delete('/Sales/{id}', [SalesController::class, 'destroy'])->name('sales.destroy');
 
         Route::get('/Report', [ReportController::class, 'index'])->name('report.index');
@@ -67,28 +69,30 @@ Route::group(['middleware' => 'auth'], function() {
     });
 
     Route::group(['middleware' => 'level:0'], function() {
-    
-    Route::get('/Sales/data', [SalesController::class, 'data'])->name('sales.data');
-    Route::get('/Sales', [SalesController::class, 'index'])->name('sales.index');
-    Route::get('/Sales/{show}', [SalesController::class, 'show'])->name('sales.show');
-    Route::delete('/Sales/{id}', [SalesController::class, 'destroy'])->name('sales.destroy');
-    
-    Route::get('/Transaction/new', [SalesController::class, 'create'])->name('transaction.new');
-    Route::post('/Transaction/simpan', [SalesController::class, 'store'])->name('transaction.simpan');
-    Route::get('/Transaction/nota-small', [SalesController::class, 'notaSmall'])->name('transaction.nota_small');
-    Route::get('/Transaction/nota-big', [SalesController::class, 'notaBig'])->name('transaction.nota_big');
-    Route::get('/Transaction/end', [SalesController::class, 'end'])->name('transaction.end');
+        
+        Route::get('/Transaction/new', [SalesController::class, 'create'])->name('transaction.new');
+        Route::post('/Transaction/simpan', [SalesController::class, 'store'])->name('transaction.simpan');
+        Route::get('/Transaction/nota-small', [SalesController::class, 'notaSmall'])->name('transaction.nota_small');
+        Route::get('/Transaction/nota-big', [SalesController::class, 'notaBig'])->name('transaction.nota_big');
+        Route::get('/Transaction/end', [SalesController::class, 'end'])->name('transaction.end');
 
-    Route::get('/Transaction/{id}/data', [SalesDetailController::class, 'data'])->name('transaction.data');
-    Route::get('/Transaction/loadform/{total}/{diterima}', [SalesDetailController::class, 'loadForm'])->name('transaction.load_form');
-    Route::resource('/Transaction', SalesDetailController::class)
-    ->except('show');
+        Route::get('/Transaction/{id}/data', [SalesDetailController::class, 'data'])->name('transaction.data');
+        Route::get('/Transaction/loadform/{total}/{diterima}', [SalesDetailController::class, 'loadForm'])->name('transaction.load_form');
+        Route::resource('/Transaction', SalesDetailController::class)
+        ->except('show');
 
-    Route::get('/Profil', [UsersController::class, 'profil'])->name('user.profil');
-    Route::post('/Profil', [UsersController::class, 'updateProfil'])->name('user.update_profil');
+        Route::get('/Profil', [UsersController::class, 'profil'])->name('user.profil');
+        Route::post('/Profil', [UsersController::class, 'updateProfil'])->name('user.update_profil');
 
     });
 
+        Route::get('/Sales/data', [SalesController::class, 'data'])->name('sales.data')->middleware('can:isKasirMananger');
+        Route::get('/Sales', [SalesController::class, 'index'])->name('sales.index')->middleware('can:isKasirMananger');
+        Route::get('/Sales/{show}', [SalesController::class, 'show'])->name('sales.show')->middleware('can:isKasirMananger');
+
+        Route::get('/LogActivity/data', [UsersAktivityController::class, 'data'])->name('userActivty.data')->middleware('can:isAdminMananger');
+        Route::get('/LogActivity', [UsersAktivityController::class, 'index'])->name('userActivity.index')->middleware('can:isAdminMananger');
+    
 
 });
 

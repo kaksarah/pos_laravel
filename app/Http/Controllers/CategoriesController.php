@@ -15,6 +15,8 @@ class CategoriesController extends Controller
      */
     public function index()
     {
+        activity()->log('Membuka menu daftar kategori');
+
         return view('category.index');
     }
 
@@ -59,6 +61,8 @@ class CategoriesController extends Controller
         $category->name_category = $request->name_category;
         $category->save();
 
+        activity()->log('Menambahkan kategori baru');
+
         return response()->json('data berhasil disimpan', 200);
     }
 
@@ -99,6 +103,8 @@ class CategoriesController extends Controller
         $category->name_category = $request->name_category;
         $category->update();
 
+        activity()->log('Mengubah data kategori');
+
         return response()->json('data berhasil disimpan', 200);
     }
 
@@ -112,6 +118,8 @@ class CategoriesController extends Controller
     {
         $category = categories::find($id);
         $category->delete();
+
+        activity()->log('Menghapus data kategori');
 
         return response(null, 204);
     }

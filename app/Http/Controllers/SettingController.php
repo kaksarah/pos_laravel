@@ -9,6 +9,7 @@ class SettingController extends Controller
 {
     public function index()
     {
+        activity()->log('Membuka menu pengaturan');
         return view('setting.index');
     }
 
@@ -37,6 +38,7 @@ class SettingController extends Controller
         }
 
         $setting->update();
+        activity()->log('Mengubah data pengaturan');
 
         return response()->json('Data berhasil disimpan', 200);
     }
