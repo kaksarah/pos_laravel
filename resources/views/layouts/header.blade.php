@@ -12,7 +12,7 @@
       @endphp
       <span class="logo-mini">{{$word}}</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b></span>
+      <span class="logo-lg"><b>{{$setting->company_name}}</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -26,13 +26,13 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="{{ url(auth()->user()->profile_photo_path) }}" class="user-image img-profil" alt="User Image">
+              <img src="{{ url(auth()->user()->profile_photo_path  ?? '' )  }}" class="user-image img-profil" alt="User Image">
               <span class="hidden-xs">{{ auth()->user()->name }}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="{{ url(auth()->user()->profile_photo_path) }}" class="img-circle img-profil" alt="User Image">
+                <img src="{{ url(auth()->user()->profile_photo_path ?? '' ) }}" class="img-circle img-profil" alt="User Image">
 
                 <p>
                   {{ auth()->user()->name }} - {{ auth()->user()->email }}
@@ -57,3 +57,4 @@
   <form action="{{ route('logout') }}" method="post" id="logout-form" style="display: none">
     @csrf 
   </form>
+  

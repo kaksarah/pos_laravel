@@ -21,52 +21,8 @@
             </span>
           </a>
         </li>
-        <li class="header">MASTER</li>
-        <li>
-          <a href="{{ route('Categories.index') }}">
-            <i class="fa fa-cube"></i> <span>Kategori</span>
-            
-          </a>
-        </li>
-        <li>
-          <a href="{{ route('Products.index') }}">
-            <i class="fa fa-cubes"></i> <span>Produk</span>
-          </a>
-        </li>
-        <li class="header">TRANSAKSI</li>
-        <li>
-          <a href="{{ route('sales.index')}}">
-            <i class="fa fa-upload"></i> <span>Penjualan</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-        </li>
-        <li>
-          <a href="{{ route('Transaction.index') }}">
-            <i class="fa fa-cart-arrow-down"></i> <span>Transaksi Aktif</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-        </li>
-        <li>
-          <a href="{{ route('transaction.new') }}">
-            <i class="fa fa-cart-arrow-down"></i> <span>Transaksi Baru</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-        </li>
-        <li class="header">REPORT</li>
-        <li>
-          <a href="{{ route('report.index')}}">
-            <i class="fa fa-file-pdf-o"></i> <span>Laporan</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-        </li>
+
+        @if (auth()->user()->level == 1)
         <li class="header">SYSTEM</li>
         <li>
           <a href="{{ route('User.index') }}">
@@ -84,6 +40,63 @@
             </span>
           </a>
         </li>
+        @endif
+
+        @if (auth()->user()->level == 2)
+        <li class="header">MASTER</li>
+        <li>
+          <a href="{{ route('Categories.index') }}">
+            <i class="fa fa-cube"></i> <span>Kategori</span>
+            
+          </a>
+        </li>
+        <li>
+          <a href="{{ route('Products.index') }}">
+            <i class="fa fa-cubes"></i> <span>Produk</span>
+          </a>
+        </li>
+        <li class="header">REPORT</li>
+        <li>
+          <a href="{{ route('report.index')}}">
+            <i class="fa fa-file-pdf-o"></i> <span>Laporan</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+        </li>
+        
+        @endif
+
+        @if (auth()->user()->level == 0)
+        <li class="header">TRANSAKSI</li>
+       
+        <li>
+          <a href="{{ route('Transaction.index') }}">
+            <i class="fa fa-cart-arrow-down"></i> <span>Transaksi Aktif</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="{{ route('transaction.new') }}">
+            <i class="fa fa-cart-arrow-down"></i> <span>Transaksi Baru</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="{{ route('sales.index')}}">
+            <i class="fa fa-upload"></i> <span>Riwayat Transaksi</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+        </li>
+        @endif
+        
+        
         
       </ul>
     </section>

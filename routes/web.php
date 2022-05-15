@@ -8,6 +8,7 @@ use App\Http\Controllers\SalesController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\DashboardController;
 
 
 /*
@@ -23,25 +24,50 @@ use App\Http\Controllers\SettingController;
 
 Route::get('/', fn () => redirect()->route('login'));
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('home');
-    })->name('dashboard');
-});
 
 Route::group(['middleware' => 'auth'], function() {
-    Route::get('/Categories/data', [CategoriesController::class, 'data'])->name('categories.data');
-    Route::resource('/Categories', CategoriesController::class);
 
-    Route::get('/Products/data', [ProductsController::class, 'data'])->name('products.data');
-    Route::post('/Products/delete-selected', [ProductsController::class, 'deleteSelected'])->name('products.delete_selected');
-    Route::post('/Products/print-barcode', [ProductsController::class, 'printBarcode'])->name('products.print_barcode');
-    Route::resource('/Products', ProductsController::class);
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+    Route::group(['middleware' => 'level:1'], function() {
+
+        Route::get('/User/data', [UsersController::class, 'data'])->name('user.data');
+        Route::resource('/User', UsersController::class);
+
+        Route::get('/Setting', [SettingController::class, 'index'])->name('setting.index');
+        Route::get('/Setting/first', [SettingController::class, 'show'])->name('setting.show');
+        Route::post('/Setting', [SettingController::class, 'update'])->name('setting.update');
+
+        Route::get('/Profil', [UsersController::class, 'profil'])->name('user.profil');
+        Route::post('/Profil', [UsersController::class, 'updateProfil'])->name('user.update_profil');
+    });
+
+    Route::group(['middleware' => 'level:2'], function() {
+
+        Route::get('/Categories/data', [CategoriesController::class, 'data'])->name('categories.data');
+        Route::resource('/Categories', CategoriesController::class);
+
+        Route::get('/Products/data', [ProductsController::class, 'data'])->name('products.data');
+        Route::post('/Products/delete-selected', [ProductsController::class, 'deleteSelected'])->name('products.delete_selected');
+        Route::post('/Products/print-barcode', [ProductsController::class, 'printBarcode'])->name('products.print_barcode');
+        Route::resource('/Products', ProductsController::class);
+
+        Route::get('/Sales/data', [SalesController::class, 'data'])->name('sales.data');
+        Route::get('/Sales', [SalesController::class, 'index'])->name('sales.index');
+        Route::get('/Sales/{show}', [SalesController::class, 'show'])->name('sales.show');
+        Route::delete('/Sales/{id}', [SalesController::class, 'destroy'])->name('sales.destroy');
+
+        Route::get('/Report', [ReportController::class, 'index'])->name('report.index');
+        Route::get('/Report/data/{start}/{end}', [ReportController::class, 'data'])->name('report.data');
+        Route::get('/Report/pdf/{start}/{end}', [ReportController::class, 'exportPDF'])->name('report.exportPDF');
+    
+        Route::get('/Profil', [UsersController::class, 'profil'])->name('user.profil');
+        Route::post('/Profil', [UsersController::class, 'updateProfil'])->name('user.update_profil');
+    
+    });
+
+    Route::group(['middleware' => 'level:0'], function() {
+    
     Route::get('/Sales/data', [SalesController::class, 'data'])->name('sales.data');
     Route::get('/Sales', [SalesController::class, 'index'])->name('sales.index');
     Route::get('/Sales/{show}', [SalesController::class, 'show'])->name('sales.show');
@@ -58,19 +84,10 @@ Route::group(['middleware' => 'auth'], function() {
     Route::resource('/Transaction', SalesDetailController::class)
     ->except('show');
 
-    Route::get('/Report', [ReportController::class, 'index'])->name('report.index');
-    Route::get('/Report/data/{start}/{end}', [ReportController::class, 'data'])->name('report.data');
-    Route::get('/Report/pdf/{start}/{end}', [ReportController::class, 'exportPDF'])->name('report.exportPDF');
-
-    Route::get('/User/data', [UsersController::class, 'data'])->name('user.data');
-    Route::resource('/User', UsersController::class);
-
-    Route::get('/Setting', [SettingController::class, 'index'])->name('setting.index');
-    Route::get('/Setting/first', [SettingController::class, 'show'])->name('setting.show');
-    Route::post('/Setting', [SettingController::class, 'update'])->name('setting.update');
-
     Route::get('/Profil', [UsersController::class, 'profil'])->name('user.profil');
     Route::post('/Profil', [UsersController::class, 'updateProfil'])->name('user.update_profil');
+
+    });
 
 
 });
