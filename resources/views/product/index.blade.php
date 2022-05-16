@@ -18,7 +18,6 @@
               <div class="btn-group">
                 <button onclick="addForm(' {{ route('Products.store') }} ')" class="btn btn-success xs btn-flat"><i class="fa fa-plus-circle"></i>Tambah</button>
                 <button onclick="deleteSelected(' {{ route('products.delete_selected') }} ')" class="btn btn-danger xs btn-flat"><i class="fa fa-trash"></i>Hapus</button>
-                <button onclick="printBarcode(' {{ route('products.print_barcode') }} ')" class="btn btn-info xs btn-flat"><i class="fa fa-barcode"></i>Cetak Barcode</button>
               </div>
             </div>
             <!-- /.box-header -->
